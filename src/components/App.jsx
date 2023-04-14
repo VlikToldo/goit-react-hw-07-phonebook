@@ -10,7 +10,6 @@ import styles from './app.module.css';
 
 export const App = () => {
   const contacts = useSelector(getFilteredContacts);
-
   const isContacts = Boolean(contacts.length);
 
   return (
