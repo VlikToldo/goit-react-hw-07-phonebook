@@ -7,7 +7,6 @@ import styles from './contact-list.module.css';
 
 const ContactList = () => {
   const contacts = useSelector(getFilteredContacts);
-
   const elements = contacts.map(item => (
     <ContactItem key={item.id} {...item} />
   ));

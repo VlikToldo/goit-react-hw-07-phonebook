@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const contactsInstance = axios.create({
-    baseURL: "https://6435b1eb537112453fdd6499.mockapi.io/api/contacts"
+    baseURL: "https://6446f536ee791e1e290cc398.mockapi.io/api/contacts"
 })
 
 export const getAllContacts = async()=> {
@@ -11,6 +11,7 @@ export const getAllContacts = async()=> {
 
 export const postContacts = async(data) => {
     const {data: result} = await contactsInstance.post("/", data);
+    console.log(result);
     return result;
 }
 

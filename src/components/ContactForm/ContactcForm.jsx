@@ -1,20 +1,33 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './contact-form.module.css';
 import initialState from './initialState';
 
 import {fetchContacts, fetchAddContact} from '../../redux/contacts/contacts-operations';
+import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
 
 
 const ContactForm = () => {
   const [state, setState] = useState({ ...initialState });
+  const contacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
 
   useEffect(()=> {
     dispatch(fetchContacts())
   }, [dispatch])
 
+  const isDublicate = (name, number) => {
+    const normalizedName = name.toLowerCase();
+    const normalizedNumber = number.toLowerCase();
+    const result = contacts.find(({ name, number }) => {
+      return (
+        name.toLowerCase() === normalizedName ||
+        number.toLowerCase() === normalizedNumber
+      );
+    });
+    return Boolean(result);
+  };
 
   const handleAddContact = ({ name, number }) => {
     dispatch(fetchAddContact({ name, number }));
@@ -30,6 +43,10 @@ const ContactForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (isDublicate(name, number)) {
+      alert(`${name}: ${number} is already ixist`);
+      return false;
+    }
     handleAddContact({ ...state });
     setState({ ...initialState });
   };
