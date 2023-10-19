@@ -15,7 +15,7 @@ const ContactFilter = () => {
 
   return (
     <div className={styles.filterBox}>
-      <label className={styles.labelFilter}>Find contacts bu name</label>
+      <label className={styles.labelFilter}>Find contacts by name</label>
       <input className={styles.inputFilter} type="text" value={filter} name="filter" onChange={handleFilter} />
     </div>
   );
